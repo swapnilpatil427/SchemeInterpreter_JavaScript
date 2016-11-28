@@ -1,0 +1,15 @@
+{
+  "title": "SchemeLuaInterpreter",
+  "name": "schemeluainterpreteraddon",
+  "version": "0.0.1",
+  "description": "Addon to handle multiple languages on the page.",
+  "main": "index.js",
+  "author": "Swapnil M. Patil",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
