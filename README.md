@@ -1,7 +1,7 @@
-#Steps to run and test firefox add:
+#Steps to run and test firefox Web-Extension:
 
 1. Install web-ext module globally
--> npm install jpm -g
+-> npm install web-ext -g
 
 2. Change directory to webextension folder
 -> cd webextension
