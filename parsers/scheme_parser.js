@@ -11,7 +11,7 @@ var parser = peg.generate(
   list =    spaces newline \"(\" spaces newline expressions:expression+ newline spaces\")\" { return expressions; };\
   expression = atom / list');
 
-var interprete = function (expr) {
+var Evaluate = function (expr) {
     //console.log(expr[0]);
     if (typeof expr === 'number') {
         console.log("number");
@@ -26,33 +26,36 @@ var interprete = function (expr) {
 
     switch (expr[0]) {
         case '+':
-            return interprete(expr[1]) +
-                interprete(expr[2]);
+            return Evaluate(expr[1]) +
+                Evaluate(expr[2]);
         case '-':
-            return interprete(expr[1]) -
-                interprete(expr[2]);
+            return Evaluate(expr[1]) -
+                Evaluate(expr[2]);
         case '*':
-            return interprete(expr[1]) *
-                interprete(expr[2]);
+            return Evaluate(expr[1]) *
+                Evaluate(expr[2]);
         case '/':
-            return interprete(expr[1]) /
-                interprete(expr[2]);
+            return Evaluate(expr[1]) /
+                Evaluate(expr[2]);
         case 'alert' :
-            return "alert(" + interprete(expr[1]) + ")"
-
+            return window.alert(Evaluate(expr[1]));
     }
 };
 
+//var pattern_for_scheme= /<script type="text\/scheme"\s*>.*?<\/script>/gi;
+// variable matches contains list of the source codes
+//var matches = generatedSource.match(pattern_for_scheme);
+
+
 var example = "(alert( + 4 ( + 2 3)))";
 //var example = "( + 4 ( + 2 3))";
-
 
 var AST = parser.parse(example);
 console.log("program : " + example);
 console.log("AST");
 console.log(parser.parse(example));
 
-res = interprete(AST);
+res = Evaluate(AST);
 console.log("\nEvaluating Scheme Program: " + res);
 
 
