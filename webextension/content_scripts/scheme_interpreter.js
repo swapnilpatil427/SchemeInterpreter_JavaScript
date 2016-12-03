@@ -1,4 +1,4 @@
-#TODO putting it into webpage
+//#TODO putting it into webpage
 
 var parser = PEG.buildParser(
     ' start = expression;\
