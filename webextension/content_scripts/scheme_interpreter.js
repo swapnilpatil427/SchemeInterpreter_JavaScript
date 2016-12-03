@@ -1,5 +1,4 @@
-//#TODO putting it into webpage
-
+// Parses a Scheme Grammar
 var parser = PEG.buildParser(
     ' start = expression;\
   validchar = [a-zA-Z_?!+\\-=@#$%^&*/.];\
@@ -11,7 +10,9 @@ var parser = PEG.buildParser(
   list =    spaces newline \"(\" spaces newline expressions:expression+ newline spaces\")\" { return expressions; };\
   expression = atom / list');
 
-var interprete = function (expr) {
+
+// Evaluates the Scheme Code
+var evaluate = function (expr) {
     //console.log(expr[0]);
     if (typeof expr === 'number') {
         console.log("number");
@@ -26,31 +27,44 @@ var interprete = function (expr) {
 
     switch (expr[0]) {
         case '+':
-            return interprete(expr[1]) +
-                interprete(expr[2]);
+            return evaluate(expr[1]) +
+                evaluate(expr[2]);
         case '-':
-            return interprete(expr[1]) -
-                interprete(expr[2]);
+            return evaluate(expr[1]) -
+                evaluate(expr[2]);
         case '*':
-            return interprete(expr[1]) *
-                interprete(expr[2]);
+            return evaluate(expr[1]) *
+                evaluate(expr[2]);
         case '/':
-            return interprete(expr[1]) /
-                interprete(expr[2]);
+            return evaluate(expr[1]) /
+                evaluate(expr[2]);
         case 'alert' :
-            return "alert(" + interprete(expr[1]) + ")"
+            return window.alert(evaluate(expr[1]));
 
     }
 };
 
-var example = "(alert( + 4 ( + 2 3)))";
+
+// Get all the Scheme Script Code.
+var scripts = document.querySelectorAll('[type="application/scheme"]');
+
+
+for(var i = 0; i < scripts.length; i++) {
+    var scheme_code = scripts[i].innerText;
+    console.log("Scheme Source - ");
+    console.log(scheme_code);
+    console.log(typeof(scheme_code));
+
+    // Builds a AST from the code matching script - type="application/scheme"
+    var AST = parser.parse(scheme_code.trim()); 
+    console.log("AST - ");
+    console.log(AST);
+
+    // Evaluates the Scheme code.
+    res = evaluate(AST);
+    console.log("\nEvaluating Scheme Program: " + res); // Print if result is returned
+}
+
+//var example = "(alert( + 4 ( + 2 3)))";
 //var example = "( + 4 ( + 2 3))";
 
-
-var AST = parser.parse(example);
-console.log("program : " + example);
-console.log("AST");
-console.log(parser.parse(example));
-
-res = interprete(AST);
-console.log("\nEvaluating Scheme Program: " + res);
