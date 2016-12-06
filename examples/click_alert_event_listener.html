@@ -1,0 +1,21 @@
+<html>
+
+<body>
+
+    <p>This example uses the addEventListener() method to attach a click event to a button.</p>
+
+    <button id="myBtn">Try it</button>
+
+    <p id="demo"></p>
+<script type="application/scheme">
+(addEventListener 
+       myBtn 
+       click 
+       (lambda (event) (
+            alert (+ 4 ( + 2 3)))
+        )
+)
+</script>
+</body>
+
+</html>

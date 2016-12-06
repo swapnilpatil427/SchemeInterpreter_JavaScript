@@ -19,13 +19,14 @@ var Evaluate = function (expr) {
     }
     // Strings are variable references
     if (typeof expr === 'string') {
-        console.log(expr);
+        console.log("String");
         //return sigma[expr];
         return expr;
     }
 
     switch (expr[0]) {
         case '+':
+            console.log(typeof expr[1])
             return Evaluate(expr[1]) +
                 Evaluate(expr[2]);
         case '-':
@@ -38,7 +39,12 @@ var Evaluate = function (expr) {
             return Evaluate(expr[1]) /
                 Evaluate(expr[2]);
         case 'alert' :
-            return window.alert(Evaluate(expr[1]));
+            return "window.alert(" + Evaluate(expr[1]) + ")";
+        case 'addEventListener' : 
+            console.log(expr[1]);
+            console.log(expr[2]);
+            console.log(expr[3]);
+            return "document.getElementById(" + expr[1] + ").document.addEventListener(" +expr[2]+ "," + Evaluate(expr[3]) +", false)";
     }
 };
 
@@ -46,9 +52,9 @@ var Evaluate = function (expr) {
 // variable matches contains list of the source codes
 //var matches = generatedSource.match(pattern_for_scheme);
 
-
-var example = "(alert( + 4 ( + 2 3)))";
-//var example = "( + 4 ( + 2 3))";
+var example = "( addEventListener myBtn click (lambda (s) (alert (+ 4 ( + 2 3))) ))"
+//var example = "(alert( + 4 ( + 2 3)))";
+//var example = "( addEventListener e 'click' (alert ( + 4 ( + 2 3))))";
 
 var AST = parser.parse(example);
 console.log("program : " + example);

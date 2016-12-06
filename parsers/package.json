@@ -1,0 +1,14 @@
+{
+  "name": "parsers",
+  "version": "1.0.0",
+  "description": "To test the parser locally",
+  "main": "scheme_parser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Swapnil M Patil",
+  "license": "ISC",
+  "dependencies": {
+    "pegjs": "^0.10.0"
+  }
+}
